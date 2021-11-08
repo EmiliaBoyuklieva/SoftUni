@@ -1,0 +1,34 @@
+CREATE TABLE [Subject]
+(
+[SubjectID] INT PRIMARY KEY IDENTITY NOT NULL,
+[SubjectName] VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE [Majors]
+(
+[MajorID] INT PRIMARY KEY IDENTITY NOT NULL,
+[Name] VARCHAR(50) NOT NULL,
+)
+
+CREATE TABLE [Students]
+(
+[StudentID] INT PRIMARY KEY IDENTITY NOT NULL,
+[StudentNumber] VARCHAR(20) NOT NULL,
+[StudentName] VARCHAR(100) NOT NULL,
+[MajorID] INT FOREIGN KEY REFERENCES [Majors]([MajorID])
+)
+
+CREATE TABLE [Payments]
+(
+[PaymentID] INT PRIMARY KEY IDENTITY NOT NULL,
+[PaymentDate] DATETIME2 NOT NULL,
+[PaymentAmount] DECIMAL(10,2),
+[StudentID] INT FOREIGN KEY REFERENCES [Students]([StudentID])
+)
+
+CREATE TABLE [Agenda]
+(
+[SubjectID] INT FOREIGN KEY REFERENCES [Subject]([SubjectID]),
+[StudentID] INT FOREIGN KEY REFERENCES [Students]([StudentID]),
+PRIMARY KEY ([StudentID],[SubjectID])
+)
